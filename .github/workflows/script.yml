@@ -3,7 +3,7 @@ name: Run Script
 on:
   push:
     branches:
-      - main  # Replace 'main' with the name of your main branch
+      - LEECH  # Replace 'main' with the name of your main branch
 
 jobs:
   run_script:

@@ -3,24 +3,21 @@ name: Run Script
 on:
   push:
     branches:
-      - LEECH  # Replace 'main' with the name of your main branch
+      - leech  # Replace 'main' with the name of your main branch
 
 jobs:
   run_script:
-    runs-on: ubuntu-latest  # You can choose a different operating system if needed
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'  # Specify the version of Python you're using
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v1
 
-    - name: Install dependencies
-      run: |
-        pip install requests aiohttp  # Install requests and aiohttp dependencies
+    - name: Build Docker image
+      run: docker build -t my-python-app .
 
-    - name: Run script
-      run: python your_script.py  # Replace 'your_script.py' with the name of your Python script
+    - name: Run Docker container
+      run: docker run --rm my-python-app
